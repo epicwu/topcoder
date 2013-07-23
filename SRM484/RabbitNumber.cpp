@@ -23,8 +23,48 @@ using namespace std;
 
 class RabbitNumber {
 public:
+	long long MAX;
+	long long Check(long long x)
+	{
+		if (x>MAX) return 0; else
+		{
+			long long sum1 = 0,sum2 = 0;
+			long long x2 = x;
+			x2 *= (long long)x;
+			
+			while (x > 0){ 
+			sum1 += x % 10;
+			x/=10; 
+			} 
+			while (x2 > 0){ 
+			sum2 += x2 % 10;
+			x2/=10; 
+			} 
+			if (sum1 * sum1 == sum2) return 1; else return 0;
+		}
+	}
+	long long Count(long long x)
+	{
+
+		long long sum = Check(x);
+		if (x < MAX)
+		{
+			int t;
+			if (x == 0) t = 1; else t = 0;
+			for (int i = t;i<4;++i)
+			sum += Count(x * 10 + i);
+		}
+		//cout<< x<<" ++ = " << sum <<endl;
+		return sum;
+	}
 	int theCount(int low, int high) {
+		MAX = high;
 		
+		long long tmp =Count(0);
+		MAX = low - 1;
+		cout<<tmp<<endl;
+		tmp -= Count(0);
+		return tmp;
 	}
 };
 
@@ -127,4 +167,4 @@ int main() {
 	return 0;
 }
 // END KAWIGIEDIT TESTING
-//Powered by KawigiEdit 2.1.4 (beta) modified by pivanof!
+//Powered by KawigiEdit 2.1.8 (beta) modified by pivanof!
